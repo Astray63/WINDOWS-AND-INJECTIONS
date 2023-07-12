@@ -8,9 +8,6 @@ Découvrez comment injecter des DLL dans des processus en cours d'exécution, ce
 ## Process Hollowing 🕳️
 Apprenez à créer des processus légitimes dans lesquels vous pouvez charger un code malveillant sans déclencher les alertes de sécurité habituelles.
 
-## CreateRemoteThread 🧬
-Explorez la technique de l'injection de code via la fonction `CreateRemoteThread`, permettant d'exécuter du code dans un processus distant.
-
 ## Shellcode Injection 🐚
 Découvrez comment injecter du code shell dans des processus et obtenir un contrôle total sur leur exécution.
 
