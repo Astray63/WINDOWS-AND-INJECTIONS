@@ -1,4 +1,4 @@
-# WINDOWS-AND-PROCESS-INJECTION
+# WINDOWS-AND-INJECTIONS
 
 Ce repo GitHub est dédié à l'exploration des différentes techniques utilisées en pentest par deux apprentis pentesters passionnés. Vous y trouverez du code, des démonstrations et des exemples pratiques pour les techniques suivantes :
 
