@@ -17,9 +17,6 @@ Ce repo est destiné à des fins éducatives et expérimentales uniquement. L'ut
 ## Contribution
 Nous encourageons les contributions de la communauté afin d'enrichir notre repo et d'explorer de nouvelles techniques de pentest. Si vous souhaitez contribuer, veuillez consulter nos directives de contribution dans le fichier CONTRIBUTING.md.
 
-## Licence
-Ce projet est sous licence [MIT](https://opensource.org/licenses/MIT). Vous êtes libre d'utiliser, de modifier et de distribuer le code présent dans ce repo, tant que vous respectez les termes de la licence.
-
 Nous espérons que ce repo sera utile pour les passionnés de pentest et les curieux de la sécurité informatique. N'hésitez pas à cloner le code, à l'explorer et à nous faire part de vos commentaires et suggestions.
 
 Bonne exploration et bon pentest !
