@@ -44,7 +44,7 @@ Cet en-tête contient des informations détaillées sur les propriétés spécif
 
 ### IMAGE_SECTION_HEADER
 
-![IMAGE_SECTION_HEADER](/home/kali/Bureau/Image-Section-Header-text-in-PEview-program.png)
+![IMAGE_SECTION_HEADER](https://imgur.com/a/mjK0m7t)
 
 Cet en-tête contient des informations sur chaque section du fichier, telles que les adresses de début et de fin, les attributs, les noms, etc. Il peut y avoir plusieurs sections dans un fichier exécutable, chacune ayant un objectif spécifique, comme le code exécutable, les données, les ressources, etc.
 
