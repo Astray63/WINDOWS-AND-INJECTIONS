@@ -24,5 +24,5 @@ Ce programme démontre comment injecter un shellcode dans un processus cible en 
 
 1. Compiler le programme en utilisant un compilateur C++ compatible.
 
-2. Exécuter le programme en spécifiant le PID du processus cible comme argument en ligne de commande. Par exemple :
+2. Exécuter le programme en spécifiant le PID du processus cible comme argument en ligne de commande.
 
