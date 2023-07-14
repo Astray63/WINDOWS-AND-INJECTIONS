@@ -1,6 +1,6 @@
 # WINDOWS-AND-INJECTIONS
 
-Ce repo GitHub est dédié à l'exploration des différentes techniques utilisées en pentest par deux apprentis pentesters passionnés. Vous y trouverez du code, des démonstrations et des exemples pratiques pour les techniques suivantes :
+Ce repo GitHub est dédié à l'exploration des différentes techniques utilisées en pentest par deux apprentis pentesters passionnés. Vous y trouverez du code, des cours et des explications pour les techniques suivantes :
 
 ## Injection DLL 💉
 Découvrez comment injecter des DLL dans des processus en cours d'exécution, ce qui permet de modifier leur comportement et d'exploiter des vulnérabilités potentielles.
