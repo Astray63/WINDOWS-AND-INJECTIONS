@@ -17,9 +17,6 @@ Explorez diverses autres techniques de pentest, telles que la modification de la
 ## Avertissement ⚠️
 Ce repo est destiné à des fins éducatives et expérimentales uniquement. L'utilisation de ces techniques dans un environnement de production sans autorisation appropriée est illégale. Les auteurs déclinent toute responsabilité quant à une utilisation inappropriée ou malveillante du contenu de ce repo.
 
-## Contribution 🤝
-Nous encourageons les contributions de la communauté afin d'enrichir notre repo et d'explorer de nouvelles techniques de pentest. Si vous souhaitez contribuer, veuillez consulter nos directives de contribution dans le fichier CONTRIBUTING.md.
-
 Nous espérons que ce repo sera utile pour les passionnés de pentest et les curieux de la sécurité informatique. N'hésitez pas à cloner le code, à l'explorer et à nous faire part de vos commentaires et suggestions.
 
 Bonne exploration et bon pentest ! ✨🔒
