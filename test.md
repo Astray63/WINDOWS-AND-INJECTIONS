@@ -1,46 +1,69 @@
-# Introduction
+# PE HEADER pour l'analyse de malwares
 
-Le format PE est un format de fichier spécifique aux binaires Windows tels que les exécutables, les DLL et les pilotes. Il permet à Windows de charger et d'exécuter ces fichiers. Les structures PE contiennent des informations importantes telles que la table des sections, l'adresse du point d'entrée de l'exécutable, et d'autres détails.
+## Introduction
 
-Pour profiter pleinement de cette visite guidée, il est recommandé d'avoir des notions en C (notamment l'utilisation de pointeurs et de structures) et d'être à l'aise avec la notation hexadécimale. Vous aurez également besoin d'un éditeur hexadécimal et d'une calculatrice (celle de Windows fera l'affaire) pour effectuer quelques manipulations.
+Dans le domaine de l'analyse de malwares, comprendre la structure interne des fichiers exécutables est essentiel. Le format Portable Executable (PE) est le format de fichier binaire utilisé par les systèmes d'exploitation Windows pour les applications exécutables. Le PE HEADER (en-tête PE) est une partie clé de ce format, car il contient des informations importantes sur le fichier exécutable lui-même.
 
-## Préparatifs : les offsets, RVA et autres (D)WORDs
+## Structure du PE HEADER
 
-Il est important de distinguer deux mondes distincts : celui des fichiers et celui de la mémoire vive. Un fichier exécutable est un fichier ordinaire, similaire à un fichier texte ou une image jpg, mais son objectif ultime est d'être chargé en mémoire par le système d'exploitation (Windows, dans notre cas). Lors du chargement en mémoire, l'exécutable subit des transformations qui le rendent complètement différent du fichier d'origine, notamment en modifiant les adresses mémoires.
+Le PE HEADER est situé au début du fichier exécutable et contient plusieurs en-têtes différents qui fournissent des informations détaillées sur le fichier. Voici une description de certains des en-têtes les plus importants :
 
-C'est pourquoi les ingénieurs de Microsoft ont introduit un système ingénieux basé sur les sections et les RVA (Relative Virtual Address), qui servent de base pour la plupart des adresses que nous rencontrerons. Ainsi, au lieu de se baser sur les offsets du fichier, les adresses sont déterminées par rapport à l'adresse de base à laquelle l'exécutable est chargé en mémoire (généralement 0x00400000).
+### DOS HEADER
 
-Un offset représente la position d'un élément dans le fichier. Par exemple, si nous voulons accéder au caractère à l'offset 4, nous lirons en réalité le cinquième caractère du fichier (comptant à partir de 0). Il est préférable d'utiliser la notation hexadécimale pour les offsets, les adresses mémoires et les RVA, bien que la notation décimale soit également possible.
+![DOS HEADER](https://example.com/dos_header.png)
 
-Les RVA sont plus subtiles, car elles dépendent de la "table des sections" pour exister. Un exécutable divise son code en sections qui sont chargées en mémoire en fonction des informations contenues dans la table des sections (nous y reviendrons plus en détail dans la deuxième partie du tutoriel). La RVA représente l'adresse en mémoire d'une entité par rapport à l'adresse de base à laquelle l'exécutable est chargé.
+Le DOS HEADER est le premier en-tête dans le fichier exécutable et contient une petite structure appelée IMAGE_DOS_HEADER. Cet en-tête fournit des informations spécifiques au système d'exploitation MS-DOS, ainsi que l'adresse de départ du PE HEADER.
 
-Enfin, nous rencontrerons souvent des termes tels que "WORD", "DWORD" ou "BYTE" dans nos structures. Ce sont simplement des variables ayant une certaine longueur en octets. Par exemple, un DWORD (Double Word) occupe 4 octets consécutifs en mémoire (en little-endian), ce qui signifie que les octets successifs en mémoire 0x01 0x02 0x03 0x04 donneront 0x04030201 en représentation DWORD. Un WORD correspond à 2 octets consécutifs en mémoire (toujours en little-endian), et un BYTE correspond à un octet.
+### Signature
 
-## le MZ Header
+L'octet de signature indique que le fichier est un exécutable PE. La signature est généralement représentée par les caractères "PE\0\0" (50 45 00 00 en hexadécimal).
 
-Ouvrons notre exécutable avec un éditeur hexadécimal et admirons les octets qui composent son en-tête MZ (MS-DOS Header). Vous reconnaîtrez probablement la célèbre phrase "This program can't run in DOS mode" si vous avez déjà essayé d'ouvrir un exécutable dans le Bloc-notes lorsque vous étiez enfant. Les premiers octets correspondent à l'en-tête MZ, qui est en réalité un exécutable MS-DOS avec des fonctionnalités supplémentaires pour les exécutables Windows.
+### IMAGE_FILE_HEADER
 
-Voici la structure représentant l'en-tête MZ :
+![IMAGE_FILE_HEADER](https://example.com/image_file_header.png)
 
-```c
-typedef struct _IMAGE_DOS_HEADER {
-    WORD e_magic; /* 00: Signature de l'en-tête MZ */
-    WORD e_cblp; /* 02: Nombre d'octets dans la dernière page du fichier */
-    WORD e_cp; /* 04: Nombre de pages du fichier */
-    WORD e_crlc; /* 06: Relocalisations */
-    WORD e_cparhdr; /* 08: Taille de l'en-tête en paragraphes */
-    WORD e_minalloc; /* 0a: Nombre minimum de paragraphes supplémentaires nécessaires */
-    WORD e_maxalloc; /* 0c: Nombre maximum de paragraphes supplémentaires nécessaires */
-    WORD e_ss; /* 0e: Valeur SS initiale (relative) */
-    WORD e_sp; /* 10: Valeur SP initiale */
-    WORD e_csum; /* 12: Somme de contrôle */
-    WORD e_ip; /* 14: Valeur IP initiale */
-    WORD e_cs; /* 16: Valeur CS initiale (relative) */
-    WORD e_lfarlc; /* 18: Adresse du tableau de relocalisation */
-    WORD e_ovno; /* 1a: Numéro de superposition */
-    WORD e_res[4]; /* 1c: Mots réservés */
-    WORD e_oemid; /* 24: Identifiant OEM (pour e_oeminfo) */
-    WORD e_oeminfo; /* 26: Informations OEM ; spécifiques à e_oemid */
-    WORD e_res2[10]; /* 28: Mots réservés */
-    DWORD e_lfanew; /* 3c: Offset du PE header étendu */
-} IMAGE_DOS_HEADER, *PIMAGE_DOS_HEADER;
+Cet en-tête fournit des informations générales sur le fichier, telles que l'architecture cible, le nombre de sections, la date et l'heure de création, etc. Il contient une structure appelée IMAGE_FILE_HEADER qui est composée des champs suivants :
+
+- Machine : Indique l'architecture cible pour laquelle le fichier a été compilé (par exemple, 0x014C pour x86, 0x8664 pour x64, etc.).
+- NumberOfSections : Indique le nombre de sections dans le fichier.
+- TimeDateStamp : Indique la date et l'heure de création du fichier.
+- Characteristics : Fournit des informations sur les attributs du fichier, tels que s'il est exécutable, s'il est lié statiquement ou dynamiquement, etc.
+
+### IMAGE_OPTIONAL_HEADER
+
+![IMAGE_OPTIONAL_HEADER](https://example.com/image_optional_header.png)
+
+Cet en-tête contient des informations détaillées sur les propriétés spécifiques du fichier. Il contient une structure appelée IMAGE_OPTIONAL_HEADER, qui peut varier en fonction de l'architecture cible. Certains des champs couramment utilisés comprennent :
+
+- AddressOfEntryPoint : Indique l'adresse de départ de l'exécution du fichier.
+- ImageBase : Indique l'adresse de base à laquelle le fichier est chargé en mémoire.
+- BaseOfCode : Indique l'adresse de base du code exécutable.
+- BaseOfData : Indique l'adresse de base des données initialisées.
+- SizeOfImage : Indique la taille totale de l'image en mémoire.
+- CheckSum : Indique la somme de contrôle du fichier exécutable.
+
+### IMAGE_SECTION_HEADER
+
+![IMAGE_SECTION_HEADER](https://example.com/image_section_header.png)
+
+Cet en-tête contient des informations sur chaque section du fichier, telles que les adresses de début et de fin, les attributs, les noms, etc. Il peut y avoir plusieurs sections dans un fichier exécutable, chacune ayant un objectif spécifique, comme le code exécutable, les données, les ressources, etc.
+
+## Analyse des PE HEADER
+
+L'analyse du PE HEADER permet aux analystes de malwares de recueillir des informations précieuses sur le fichier exécutable. Voici quelques éléments clés à examiner lors de l'analyse :
+
+1. Architecture cible : Le champ "Machine" dans l'IMAGE_FILE_HEADER indique l'architecture cible pour laquelle le fichier a été compilé. Cela peut aider à déterminer la plate-forme pour laquelle le malware est destiné.
+
+2. Nombre de sections : Le champ "NumberOfSections" dans l'IMAGE_FILE_HEADER indique le nombre de sections dans le fichier. Chaque section peut contenir du code, des données, des ressources, etc. L'analyse de ces sections peut aider à comprendre la structure interne du fichier.
+
+3. Entrée point (Entry Point) : Le champ "AddressOfEntryPoint" dans l'IMAGE_OPTIONAL_HEADER indique l'adresse de départ de l'exécution du fichier. Il peut être utile pour comprendre le point d'entrée du malware et les premières instructions exécutées.
+
+4. Adresses de base : Les champs "ImageBase", "BaseOfCode" et "BaseOfData" dans l'IMAGE_OPTIONAL_HEADER indiquent les adresses de base de l'image, du code et des données respectivement. Ces informations sont importantes pour la résolution des adresses lors de l'analyse dynamique du malware.
+
+5. Informations sur les sections : Les champs de l'IMAGE_SECTION_HEADER fournissent des informations sur chaque section, telles que les adresses de début et de fin, les attributs, les noms, etc. L'analyse de ces informations peut aider à identifier les parties du fichier utilisées par le malware, telles que les sections de code malveillant ou les sections de données chiffrées.
+
+## Conclusion
+
+La compréhension du PE HEADER est cruciale dans l'analyse de malwares, car il fournit des informations clés sur le fichier exécutable. En examinant les différents en-têtes et champs du PE HEADER, les analystes peuvent obtenir des indices sur la nature du fichier, son architecture, ses fonctionnalités et bien plus encore. Cette connaissance est essentielle pour comprendre le comportement et les capacités du malware.
+
+N'hésitez pas à explorer davantage les différentes structures et champs du PE HEADER pour approfondir votre analyse de malwares.
