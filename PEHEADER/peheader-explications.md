@@ -10,8 +10,6 @@ Le PE HEADER est situé au début du fichier exécutable et contient plusieurs e
 
 ### DOS HEADER
 
-![DOS HEADER](https://example.com/dos_header.png)
-
 Le DOS HEADER est le premier en-tête dans le fichier exécutable et contient une petite structure appelée IMAGE_DOS_HEADER. Cet en-tête fournit des informations spécifiques au système d'exploitation MS-DOS, ainsi que l'adresse de départ du PE HEADER.
 
 ### Signature
@@ -19,8 +17,6 @@ Le DOS HEADER est le premier en-tête dans le fichier exécutable et contient un
 L'octet de signature indique que le fichier est un exécutable PE. La signature est généralement représentée par les caractères "PE\0\0" (50 45 00 00 en hexadécimal).
 
 ### IMAGE_FILE_HEADER
-
-![IMAGE_FILE_HEADER](https://example.com/image_file_header.png)
 
 Cet en-tête fournit des informations générales sur le fichier, telles que l'architecture cible, le nombre de sections, la date et l'heure de création, etc. Il contient une structure appelée IMAGE_FILE_HEADER qui est composée des champs suivants :
 
@@ -30,8 +26,6 @@ Cet en-tête fournit des informations générales sur le fichier, telles que l'a
 - Characteristics : Fournit des informations sur les attributs du fichier, tels que s'il est exécutable, s'il est lié statiquement ou dynamiquement, etc.
 
 ### IMAGE_OPTIONAL_HEADER
-
-![IMAGE_OPTIONAL_HEADER](https://example.com/image_optional_header.png)
 
 Cet en-tête contient des informations détaillées sur les propriétés spécifiques du fichier. Il contient une structure appelée IMAGE_OPTIONAL_HEADER, qui peut varier en fonction de l'architecture cible. Certains des champs couramment utilisés comprennent :
 
@@ -43,8 +37,6 @@ Cet en-tête contient des informations détaillées sur les propriétés spécif
 - CheckSum : Indique la somme de contrôle du fichier exécutable.
 
 ### IMAGE_SECTION_HEADER
-
-![IMAGE_SECTION_HEADER](https://imgur.com/a/mjK0m7t)
 
 Cet en-tête contient des informations sur chaque section du fichier, telles que les adresses de début et de fin, les attributs, les noms, etc. Il peut y avoir plusieurs sections dans un fichier exécutable, chacune ayant un objectif spécifique, comme le code exécutable, les données, les ressources, etc.
 
