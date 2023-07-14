@@ -8,7 +8,7 @@ Découvrez comment injecter des DLL dans des processus en cours d'exécution, ce
 ## Process Hollowing 🕳️
 Apprenez à créer des processus légitimes dans lesquels vous pouvez charger un code malveillant sans déclencher les alertes de sécurité habituelles.
 
-## Shellcode Injection 🐚
+## Injection de Shellcode 🐚
 Découvrez comment injecter du code shell dans des processus et obtenir un contrôle total sur leur exécution.
 
 ## Autres Techniques 🔍
