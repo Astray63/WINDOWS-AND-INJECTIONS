@@ -16,7 +16,7 @@ Les RVA sont plus subtiles, car elles dépendent de la "table des sections" pour
 
 Enfin, nous rencontrerons souvent des termes tels que "WORD", "DWORD" ou "BYTE" dans nos structures. Ce sont simplement des variables ayant une certaine longueur en octets. Par exemple, un DWORD (Double Word) occupe 4 octets consécutifs en mémoire (en little-endian), ce qui signifie que les octets successifs en mémoire 0x01 0x02 0x03 0x04 donneront 0x04030201 en représentation DWORD. Un WORD correspond à 2 octets consécutifs en mémoire (toujours en little-endian), et un BYTE correspond à un octet.
 
-## Début de la randonnée : le MZ Header
+## le MZ Header
 
 Ouvrons notre exécutable avec un éditeur hexadécimal et admirons les octets qui composent son en-tête MZ (MS-DOS Header). Vous reconnaîtrez probablement la célèbre phrase "This program can't run in DOS mode" si vous avez déjà essayé d'ouvrir un exécutable dans le Bloc-notes lorsque vous étiez enfant. Les premiers octets correspondent à l'en-tête MZ, qui est en réalité un exécutable MS-DOS avec des fonctionnalités supplémentaires pour les exécutables Windows.
 
